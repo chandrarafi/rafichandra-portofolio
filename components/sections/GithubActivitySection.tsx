@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import ScrollAnimationWrapper from "../ScrollAnimationWrapper";
 
-const GITHUB_USERNAME = "Chandra2606";
+const GITHUB_USERNAME = "chandrarafi";
 
 interface Repository {
     id: number;
