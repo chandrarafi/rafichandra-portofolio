@@ -59,6 +59,14 @@ html {
         }
     }
 
+    /* Pause both animations when hovering the wrapper or the animation itself */
+    .skills-container:hover .animate-scroll-left,
+    .skills-container:hover .animate-scroll-right,
+    .animate-scroll-left:hover,
+    .animate-scroll-right:hover {
+        animation-play-state: paused;
+    }
+
     /* Animasi scroll baru */
     .animate-scroll-in {
         opacity: 0;

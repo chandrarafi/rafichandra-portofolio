@@ -63,7 +63,7 @@ export default function RootLayout({
                 title="heroui.com homepage"
               >
                 <span className="text-default-600">Rafi Chandra</span>
-                <p className="text-primary">2025</p>
+                <p className="text-primary">2026</p>
               </Link>
             </footer>
             <ScrollAnimation />

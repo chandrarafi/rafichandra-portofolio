@@ -1,70 +1,155 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { Briefcase, Calendar, CheckCircle2 } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useLanguage } from "@/context/LanguageContext";
 
-import ScrollAnimationWrapper from "../ScrollAnimationWrapper";
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
+
+const projectData = [
+  {
+    year: "2026",
+    items: [
+      "CMS Company Profile PT Tazar Sejahtera Mandiri",
+      "Network Managent System Dealer PT Menara Agung",
+      "Learning Management System PT Menara Agung",
+      "Enterprise Resource Planning PT Menara Agung",
+    ],
+  },
+  {
+    year: "2024",
+    items: [
+      "Financial Information System for Fasibillilah Mosque, Padang",
+      "Inventory Management Information System at Buddy Petshop",
+      "Reservation Information System for The Z Barbershop, Padang",
+      "Membership and Product Sales Information System at CafGym",
+      "Asset and Inventory Management Information System",
+      "Web-Based Stock Management Information System for Yessi Pharmacy",
+      "Web-Based Car Workshop Information System for Hangkito Motor",
+      "Photo Studio Booking Information System Integrated with Midtrans Payment Gateway",
+      "Mobile Phone Repair Information System at Rendy Cell Integrated with WhatsApp Gateway",
+      "Car Rental Information System at Salido RentCar",
+    ],
+  },
+  {
+    year: "2021",
+    items: [
+      "Point of Sales (POS) System for Bintang Pharmacy, Padang Pariaman",
+    ],
+  },
+];
 
 const ProjectSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
+
+  useGSAP(() => {
+    // Header animation
+    gsap.fromTo(
+      ".project-header",
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+        },
+      }
+    );
+
+    // Timeline line animation
+    gsap.fromTo(
+      ".timeline-line",
+      { height: 0 },
+      {
+        height: "100%",
+        duration: 2,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: ".timeline-container",
+          start: "top 60%",
+          end: "bottom 80%",
+          scrub: 1,
+        },
+      }
+    );
+
+    // Timeline items staggered animation
+    const items = gsap.utils.toArray(".timeline-item");
+    items.forEach((item: any, i) => {
+      gsap.fromTo(
+        item,
+        { x: -50, opacity: 0, scale: 0.95 },
+        {
+          x: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%",
+          },
+        }
+      );
+    });
+  }, { scope: containerRef });
+
   return (
-    <ScrollAnimationWrapper>
-      <section className="w-full py-12 md:py-16 " id="projects">
-        <div className="container mx-auto px-4">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-[#FF1CF7] to-[#b249f8]">
-            Project Portfolio
-          </h2>
-          <p className="text-center text-sm sm:text-base text-gray-300 max-w-2xl mx-auto mb-8 md:mb-12">
-            Koleksi proyek-proyek terbaik yang telah saya kerjakan, menampilkan
-            kemampuan dan pengalaman saya
-          </p>
+    <div ref={containerRef}>
+      <section className="w-full py-16 md:py-24 overflow-hidden" id="projects">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="project-header">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 md:mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-[#FF1CF7] to-[#b249f8] tracking-tight">
+              {t("project.title")}
+            </h2>
+            <p className="text-center text-base sm:text-lg text-gray-400 max-w-2xl mx-auto mb-16 md:mb-24">
+              {t("project.subtitle")}
+            </p>
+          </div>
 
-          {/* Coming Soon */}
-          <div className="bg-[#161b22] p-4 sm:p-6 md:p-8 rounded-xl border border-gray-700 shadow-xl max-w-5xl mx-auto relative overflow-hidden">
-            <div className="absolute -top-16 -right-16 w-32 h-32 bg-gradient-to-br from-[#FF1CF7]/20 to-[#b249f8]/20 rounded-full blur-2xl" />
-            <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-gradient-to-br from-[#58a6ff]/20 to-[#b249f8]/20 rounded-full blur-2xl" />
-
-            <div className="text-center py-8 md:py-16 relative z-10">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-3 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#58a6ff] to-[#b249f8]">
-                Coming Soon
-              </h3>
-              <p className="text-gray-300 text-sm sm:text-base md:text-xl max-w-2xl mx-auto mb-6 md:mb-8">
-                Halaman proyek sedang dalam pengembangan. Segera hadir!
-              </p>
-
-              <div className="flex justify-center space-x-4 mt-6 md:mt-8">
-                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-[#58a6ff] animate-pulse" />
-                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-[#8a6bfa] animate-pulse delay-100" />
-                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-[#b249f8] animate-pulse delay-200" />
+          <div className="relative timeline-container">
+            <div className="flex items-center gap-3 mb-8 md:mb-12 justify-center project-header">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-[#FF1CF7]/20 to-[#b249f8]/20 border border-[#b249f8]/30 shadow-[0_0_20px_rgba(178,73,248,0.2)]">
+                <Briefcase className="w-6 h-6 text-[#FF1CF7]" />
               </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white">{t("project.heading")}</h3>
             </div>
 
-            {/* Placeholder Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mt-6 md:mt-8">
-              {[1, 2, 3, 4, 5, 6].map((item) => (
-                <div
-                  key={item}
-                  className="bg-[#21262d]/50 rounded-lg p-2 sm:p-3 md:p-4 border border-gray-700 h-40 sm:h-48 md:h-64 flex flex-col justify-center items-center backdrop-blur-sm"
-                >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-[#58a6ff]/30 to-[#b249f8]/30 mb-2 sm:mb-3 md:mb-4 flex items-center justify-center">
-                    <svg
-                      className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                      />
-                    </svg>
+            <div className="relative ml-4 md:ml-6 space-y-10 md:space-y-14">
+              {/* Animated line */}
+              <div className="timeline-line absolute left-0 top-0 w-px bg-gradient-to-b from-[#FF1CF7] via-[#b249f8] to-transparent origin-top" />
+              {/* Background line */}
+              <div className="absolute left-0 top-0 w-px h-full bg-gray-700/60 -z-10" />
+
+              {projectData.map((data, idx) => (
+                <div key={idx} className="relative pl-8 md:pl-10 group timeline-item">
+                  <div className="absolute -left-[17px] top-1 h-8 w-8 rounded-full bg-[#0d1117] border-2 border-[#b249f8] flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-[0_0_15px_rgba(178,73,248,0.5)] z-10">
+                    <Calendar className="w-4 h-4 text-[#FF1CF7]" />
                   </div>
-                  <div className="h-3 sm:h-4 md:h-6 w-16 sm:w-20 md:w-32 bg-gray-700/50 rounded mb-2" />
-                  <div className="h-2 sm:h-3 md:h-4 w-12 sm:w-16 md:w-24 bg-gray-700/50 rounded" />
-                  <div className="mt-2 sm:mt-3 md:mt-4 flex space-x-1 sm:space-x-2">
-                    <div className="h-2 sm:h-3 md:h-4 w-8 sm:w-10 md:w-12 bg-gray-700/50 rounded" />
-                    <div className="h-2 sm:h-3 md:h-4 w-8 sm:w-10 md:w-12 bg-gray-700/50 rounded" />
+                  <div className="flex flex-col mb-4">
+                    <span className="text-sm font-bold tracking-widest text-[#FF1CF7] uppercase mb-1 inline-block">
+                      {data.year}
+                    </span>
+                  </div>
+                  <div className="bg-[#161b22] p-5 md:p-7 rounded-2xl border border-gray-700/50 shadow-xl transition-all duration-300 hover:border-[#b249f8]/50 hover:shadow-[0_8px_30px_rgba(178,73,248,0.15)] hover:bg-[#1c2128]">
+                    <ul className="space-y-3">
+                      {data.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-[#58a6ff] shrink-0 mt-0.5" />
+                          <span className="text-gray-300 leading-relaxed text-sm md:text-base">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               ))}
@@ -72,7 +157,7 @@ const ProjectSection = () => {
           </div>
         </div>
       </section>
-    </ScrollAnimationWrapper>
+    </div>
   );
 };
 
