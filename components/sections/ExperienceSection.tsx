@@ -88,7 +88,7 @@ const ExperienceSection = () => {
         <div className="pointer-events-none absolute inset-0 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
         <div className="container mx-auto px-4 max-w-4xl relative z-10">
           <div className="exp-header">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading mb-4 md:mb-6 text-center text-main tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading mb-4 md:mb-6 text-center text-black tracking-tight bg-yellow-300 border-[3px] border-black shadow-[8px_8px_0px_0px_#000000] px-6 py-4 sm:py-5 md:py-6 mx-auto w-fit">
               {t("exp.title")}
             </h2>
             <p className="text-center text-base sm:text-lg text-text/60 dark:text-darkText/60 max-w-2xl mx-auto mb-16 md:mb-24">
@@ -97,23 +97,18 @@ const ExperienceSection = () => {
           </div>
 
           <div className="relative exp-timeline-container">
-            <div className="flex items-center gap-3 mb-8 md:mb-12 justify-center exp-header">
-              <div className="p-3 rounded-base border-2 border-border dark:border-darkBorder bg-main/20">
-                <Briefcase className="w-6 h-6 text-main" />
-              </div>
-              <h3 className="text-2xl md:text-3xl font-heading text-text dark:text-darkText">{t("exp.heading")}</h3>
-            </div>
+           
 
             <div className="relative ml-4 md:ml-6 space-y-8 md:space-y-10">
-              <div className="exp-timeline-line absolute left-0 top-0 w-[3px] bg-main origin-top" />
+              <div className="exp-timeline-line absolute left-0 top-0 w-[3px] bg-yellow-300 origin-top" />
               <div className="absolute left-0 top-0 w-[3px] h-full bg-border/20 dark:bg-darkBorder/20 -z-10" />
 
               {experienceData.map((exp, idx) => (
                 <div key={idx} className="relative pl-8 md:pl-10 group exp-timeline-item">
                   <div className="absolute -left-[15px] top-1/2 -translate-y-1/2 h-8 w-8 rounded-base bg-bg dark:bg-darkBg border-2 border-border dark:border-darkBorder flex items-center justify-center transition-transform duration-300 group-hover:scale-110 z-10">
-                    <div className="h-3 w-3 rounded-full bg-main" />
+                    <div className="h-3 w-3 rounded-full bg-yellow-300" />
                   </div>
-                  <div className="rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark p-5 md:p-6 transition-all duration-300 hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none">
+                  <div className="rounded-base border-2 sm:border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_#000000] md:shadow-[12px_12px_0px_0px_#000000] p-5 md:p-6 transition-all duration-300 hover:translate-x-[4px] hover:translate-y-[4px] md:hover:translate-x-[12px] md:hover:translate-y-[12px] hover:shadow-none">
                     <h4 className="text-lg md:text-xl font-heading text-text dark:text-darkText mb-2 leading-tight">
                       {exp.role}
                     </h4>
@@ -122,7 +117,7 @@ const ExperienceSection = () => {
                         {exp.company}
                       </span>
                       {exp.date && (
-                        <span className="inline-flex items-center px-3 py-1 rounded-base text-xs font-heading bg-main/10 text-main border-2 border-border dark:border-darkBorder">
+                        <span className="inline-flex items-center px-3 py-1 rounded-base text-xs font-heading bg-yellow-300/30 text-black border-2 border-black">
                           {exp.date}
                         </span>
                       )}

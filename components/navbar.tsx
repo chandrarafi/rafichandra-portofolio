@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import NextLink from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -55,22 +55,22 @@ export const Navbar = () => {
   };
 
   return (
-    <>
-      <nav className="sticky top-4 z-50 w-full px-4">
+    <div ref={menuRef}>
+      <nav className="sticky top-0 z-50 w-full px-2 sm:px-4">
         <div
           className={cn(
-            "mx-auto mt-2 sm:mt-4 flex h-[60px] sm:h-[70px] md:h-[80px] w-full max-w-full",
+            "mx-auto mt-2 sm:mt-4 flex h-[50px] sm:h-[60px] md:h-[70px] lg:h-[80px] w-full max-w-full",
             "items-center justify-between px-3 sm:px-6 transition-transform",
             "duration-300 ease-in-out bg-yellow-300",
-            "border-[3px] border-black",
-            "shadow-[8px_8px_0px_0px_#000000]",
+            "border-2 sm:border-[3px] border-black",
+            "shadow-[4px_4px_0px_0px_#000000] sm:shadow-[8px_8px_0px_0px_#000000]",
             showNav ? "translate-y-0" : "-translate-y-[calc(100%+40px)]"
           )}
         >
           {/* Logo */}
           <NextLink
             href="/"
-            className="text-3xl lg:text-5xl font-black tracking-tight text-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 min-w-[80px] font-japan [text-shadow:3px_3px_0px_#000]"
+            className="text-2xl sm:text-3xl lg:text-5xl font-black tracking-tight text-white transform -rotate-2 hover:rotate-0 transition-transform duration-300 font-japan [text-shadow:3px_3px_0px_#000]"
           >
             RC
           </NextLink>
@@ -116,33 +116,36 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="md:hidden flex items-center gap-2 sm:gap-4">
             <LanguageSwitcher />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 bg-main transform hover:-rotate-3 transition-transform border-2 border-black shadow-[4px_4px_0px_0px_#000000]"
+              className="p-1.5 sm:p-2 bg-main transform hover:-rotate-3 transition-transform border-2 border-black shadow-[3px_3px_0px_0px_#000000]"
             >
-              <div className="w-6 h-0.5 bg-black mb-1"></div>
-              <div className="w-6 h-0.5 bg-black mb-1"></div>
-              <div className="w-6 h-0.5 bg-black"></div>
+              {isMenuOpen ? (
+                <X size={20} className="text-black" />
+              ) : (
+                <>
+                  <div className="w-5 h-0.5 bg-black mb-1"></div>
+                  <div className="w-5 h-0.5 bg-black mb-1"></div>
+                  <div className="w-5 h-0.5 bg-black"></div>
+                </>
+              )}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - inside flow, not fixed */}
       {isMenuOpen && (
-        <div
-          className="fixed top-[90px] sm:top-[110px] z-50 w-full px-2 sm:px-4"
-          ref={menuRef}
-        >
-          <div className="w-full bg-white p-4 border-[3px] border-black shadow-[8px_8px_0px_0px_#000000]">
-            <div className="flex flex-col space-y-3">
+        <div className="md:hidden w-full px-2 sm:px-4 relative z-40">
+          <div className="w-full bg-white p-3 sm:p-4 border-2 sm:border-[3px] border-black shadow-[4px_4px_0px_0px_#000000] sm:shadow-[8px_8px_0px_0px_#000000]">
+            <div className="flex flex-col space-y-2 sm:space-y-3">
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="p-2 text-center text-lg font-bold bg-yellow-300 transform hover:rotate-2 transition-transform border-2 border-black shadow-[4px_4px_0px_0px_#000000]"
+                  className="p-2 sm:p-3 text-center text-base sm:text-lg font-bold bg-yellow-300 border-2 border-black shadow-[3px_3px_0px_0px_#000000]"
                   onClick={(e) => {
                     if (item.href.startsWith("#")) {
                       e.preventDefault();
@@ -155,20 +158,21 @@ export const Navbar = () => {
                 </a>
               ))}
               <a
-                className="p-2 text-center text-lg font-bold bg-yellow-300 transform hover:rotate-2 transition-transform border-2 border-black shadow-[4px_4px_0px_0px_#000000] inline-flex items-center justify-center gap-2"
+                className="p-2 sm:p-3 text-center text-base sm:text-lg font-bold bg-yellow-300 border-2 border-black shadow-[3px_3px_0px_0px_#000000] inline-flex items-center justify-center gap-2"
                 href={siteConfig.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Github <ExternalLink size={14} />
               </a>
             </div>
-            <div className="mt-4 p-2">
+            <div className="mt-3 sm:mt-4">
               <a href={siteConfig.links.discord} target="_blank" rel="noopener noreferrer" className="block">
                 <Button
                   variant="default"
                   size="default"
-                  className="w-full bg-main border-[2px] border-black text-black font-heading shadow-[4px_4px_0px_0px_#000000] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none"
+                  className="w-full bg-main border-[2px] border-black text-black font-heading shadow-[3px_3px_0px_0px_#000000] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none"
                 >
                   Get in Touch!
                 </Button>
@@ -177,6 +181,6 @@ export const Navbar = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };

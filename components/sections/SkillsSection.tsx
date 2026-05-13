@@ -152,7 +152,7 @@ export const SkillsSection = () => {
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundSize: "20px 20px", backgroundImage: "linear-gradient(to right, #e4e4e7 1px, transparent 1px), linear-gradient(to bottom, #e4e4e7 1px, transparent 1px)" }} />
         <div className="pointer-events-none absolute inset-0 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="skills-title text-2xl sm:text-3xl md:text-5xl font-heading mb-10 md:mb-16 text-center text-main tracking-tight">
+          <h2 className="skills-title text-2xl sm:text-3xl md:text-5xl font-heading mb-10 md:mb-16 text-center text-black tracking-tight bg-yellow-300 border-[3px] border-black shadow-[8px_8px_0px_0px_#000000] px-6 py-4 sm:py-5 md:py-6 mx-auto w-fit">
             {t("skills.title")}
           </h2>
 
@@ -166,7 +166,7 @@ export const SkillsSection = () => {
                   className="skill-item-1 flex flex-col items-center shrink-0 group"
                 >
                   <div
-                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center rounded-base mb-3 border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark group-hover:-translate-y-2 group-hover:translate-x-boxShadowX group-hover:shadow-none transition-all duration-300 p-4 md:p-5"
+                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center rounded-base mb-3 border-2 sm:border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_#000000] md:shadow-[12px_12px_0px_0px_#000000] group-hover:-translate-y-2 group-hover:shadow-none transition-all duration-300 p-4 md:p-5"
                   >
                     <img
                       alt={skill.name}
@@ -189,7 +189,7 @@ export const SkillsSection = () => {
                   className="skill-item-2 flex flex-col items-center shrink-0 group"
                 >
                   <div
-                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center rounded-base mb-3 border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark group-hover:-translate-y-2 group-hover:translate-x-boxShadowX group-hover:shadow-none transition-all duration-300 p-4 md:p-5"
+                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center rounded-base mb-3 border-2 sm:border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_#000000] md:shadow-[12px_12px_0px_0px_#000000] group-hover:-translate-y-2 group-hover:shadow-none transition-all duration-300 p-4 md:p-5"
                   >
                     <img
                       alt={skill.name}

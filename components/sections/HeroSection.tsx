@@ -170,7 +170,7 @@ export const HeroSection = () => {
     <section
       ref={containerRef}
       id="home"
-      className="relative flex min-h-[600px] sm:min-h-[700px] h-screen w-full flex-col items-center justify-center bg-white overflow-hidden pt-[100px] sm:pt-[110px] md:pt-[120px] pb-[140px] sm:pb-[160px] md:pb-[180px]"
+      className="relative flex min-h-[600px] sm:min-h-[700px] h-screen w-full flex-col items-center justify-center bg-white overflow-hidden pt-[80px] sm:pt-[100px] md:pt-[110px] lg:pt-[120px] pb-[140px] sm:pb-[160px] md:pb-[180px]"
     >
       {/* Grid background */}
       <div
@@ -185,7 +185,7 @@ export const HeroSection = () => {
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
 
       {/* Main content */}
-      <div className="mx-auto max-w-full px-8 sm:px-10 md:px-14 lg:px-16 py-2 sm:py-4 md:py-8 lg:py-4 text-left flex flex-col lg:flex-row items-center justify-between relative z-10 flex-1">
+      <div className="mx-auto max-w-full px-4 sm:px-6 md:px-10 lg:px-16 py-2 sm:py-4 md:py-8 lg:py-4 text-left flex flex-col lg:flex-row items-center justify-between relative z-10 flex-1">
         {/* Left - Text Content */}
         <div className="w-full lg:w-[55%] flex flex-col items-center lg:items-start lg:pl-8 order-2 lg:order-1">
           {/* Typewriter greeting */}
@@ -218,7 +218,7 @@ export const HeroSection = () => {
                 <Github className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" strokeWidth={1.5} />
               </a>
               <a
-                href={siteConfig.links.discord}
+                href={siteConfig.links.linked}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-800 hover:scale-110 hover:rotate-[10deg] transition-all duration-300"
@@ -288,10 +288,10 @@ export const HeroSection = () => {
       </div>
 
       {/* Marquee Skills - Bottom - X cross */}
-      <div className="hero-marquee absolute bottom-0 left-0 w-full z-20 h-[120px] sm:h-[140px] md:h-[160px]">
+      <div className="hero-marquee absolute bottom-0 left-0 w-full z-20 h-[110px] sm:h-[130px] md:h-[150px] overflow-hidden">
         {/* Row 1 - tilted \ direction, scroll left */}
-        <div className="absolute top-0 left-0 w-full border-y-[2px] border-black bg-white py-2 sm:py-3 -rotate-[3deg] origin-center translate-y-[10px] sm:translate-y-[14px]">
-          <div className="flex animate-scroll-left w-max">
+        <div className="absolute top-[5px] sm:top-[8px] left-0 w-[105%] -ml-[2.5%] border-y-[2px] border-black bg-white py-1.5 sm:py-2 -rotate-[2deg] origin-center">
+          <div className="flex animate-scroll-left-slow w-max">
             {[...skillIcons, ...skillIcons, ...skillIcons].map((skill, index) => (
               <div className="flex items-center mx-4 sm:mx-6 lg:mx-8" key={`row1-${index}`}>
                 <img src={skill.icon} alt={skill.name} className="w-5 h-5 sm:w-7 sm:h-7 lg:w-8 lg:h-8 mr-2" />
@@ -301,8 +301,8 @@ export const HeroSection = () => {
           </div>
         </div>
         {/* Row 2 - tilted / direction, scroll right */}
-        <div className="absolute bottom-0 left-0 w-full border-y-[2px] border-black bg-white py-2 sm:py-3 rotate-[3deg] origin-center -translate-y-[10px] sm:-translate-y-[14px]">
-          <div className="flex animate-scroll-right w-max">
+        <div className="absolute bottom-[5px] sm:bottom-[8px] left-0 w-[105%] -ml-[2.5%] border-y-[2px] border-black bg-white py-1.5 sm:py-2 rotate-[2deg] origin-center">
+          <div className="flex animate-scroll-right-slow w-max">
             {[...skillIcons].reverse().concat([...skillIcons].reverse(), [...skillIcons].reverse()).map((skill, index) => (
               <div className="flex items-center mx-4 sm:mx-6 lg:mx-8" key={`row2-${index}`}>
                 <img src={skill.icon} alt={skill.name} className="w-5 h-5 sm:w-7 sm:h-7 lg:w-8 lg:h-8 mr-2" />

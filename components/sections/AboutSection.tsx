@@ -59,8 +59,8 @@ export const AboutSection = () => {
         <div className="pointer-events-none absolute inset-0 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
         <div className="container mx-auto px-4 max-w-4xl relative z-10">
           <div className="grid grid-cols-1 gap-10 items-center perspective-1000">
-            <div className="about-card rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark p-6 sm:p-8 md:p-12 transition-all duration-500 hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading mb-4 sm:mb-6 md:mb-8 text-main text-center tracking-tight">
+            <div className="about-card rounded-base border-2 sm:border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_#000000] md:shadow-[12px_12px_0px_0px_#000000] p-6 sm:p-8 md:p-12 transition-all duration-500 hover:translate-x-[4px] hover:translate-y-[4px] md:hover:translate-x-[12px] md:hover:translate-y-[12px] hover:shadow-none">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading mb-4 sm:mb-6 md:mb-8 text-black text-center tracking-tight bg-yellow-300 border-[3px] border-black shadow-[8px_8px_0px_0px_#000000] px-6 py-4 sm:py-5 md:py-6 mx-auto w-fit">
                 {t("about.title")}
               </h3>
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-text/70 dark:text-darkText/70 leading-loose sm:leading-relaxed text-left sm:text-center font-base">

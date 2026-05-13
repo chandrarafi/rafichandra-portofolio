@@ -108,7 +108,7 @@ const ProjectSection = () => {
         <div className="pointer-events-none absolute inset-0 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
         <div className="container mx-auto px-4 max-w-4xl relative z-10">
           <div className="project-header">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading mb-4 md:mb-6 text-center text-main tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading mb-4 md:mb-6 text-center text-black tracking-tight bg-yellow-300 border-[3px] border-black shadow-[8px_8px_0px_0px_#000000] px-6 py-4 sm:py-5 md:py-6 mx-auto w-fit">
               {t("project.title")}
             </h2>
             <p className="text-center text-base sm:text-lg text-text/60 dark:text-darkText/60 max-w-2xl mx-auto mb-16 md:mb-24">
@@ -117,32 +117,27 @@ const ProjectSection = () => {
           </div>
 
           <div className="relative timeline-container">
-            <div className="flex items-center gap-3 mb-8 md:mb-12 justify-center project-header">
-              <div className="p-3 rounded-base border-2 border-border dark:border-darkBorder bg-mainAccent/20">
-                <Briefcase className="w-6 h-6 text-mainAccent" />
-              </div>
-              <h3 className="text-2xl md:text-3xl font-heading text-text dark:text-darkText">{t("project.heading")}</h3>
-            </div>
+            
 
             <div className="relative ml-4 md:ml-6 space-y-10 md:space-y-14">
-              <div className="timeline-line absolute left-0 top-0 w-[3px] bg-mainAccent origin-top" />
+              <div className="timeline-line absolute left-0 top-0 w-[3px] bg-yellow-300 origin-top" />
               <div className="absolute left-0 top-0 w-[3px] h-full bg-border/20 dark:bg-darkBorder/20 -z-10" />
 
               {projectData.map((data, idx) => (
                 <div key={idx} className="relative pl-8 md:pl-10 group timeline-item">
                   <div className="absolute -left-[15px] top-1 h-8 w-8 rounded-base bg-bg dark:bg-darkBg border-2 border-border dark:border-darkBorder flex items-center justify-center transition-transform duration-300 group-hover:scale-110 z-10">
-                    <Calendar className="w-4 h-4 text-mainAccent" />
+                    <Calendar className="w-4 h-4 text-yellow-500" />
                   </div>
                   <div className="flex flex-col mb-4">
-                    <span className="text-sm font-heading tracking-widest text-main uppercase mb-1 inline-block">
+                    <span className="text-sm font-heading tracking-widest text-yellow-600 uppercase mb-1 inline-block">
                       {data.year}
                     </span>
                   </div>
-                  <div className="rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark p-5 md:p-7 transition-all duration-300 hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none">
+                  <div className="rounded-base border-2 sm:border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_#000000] md:shadow-[12px_12px_0px_0px_#000000] p-5 md:p-7 transition-all duration-300 hover:translate-x-[4px] hover:translate-y-[4px] md:hover:translate-x-[12px] md:hover:translate-y-[12px] hover:shadow-none">
                     <ul className="space-y-3">
                       {data.items.map((item, itemIdx) => (
                         <li key={itemIdx} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-mainAccent shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" />
                           <span className="text-text/80 dark:text-darkText/80 leading-relaxed text-sm md:text-base">{item}</span>
                         </li>
                       ))}

@@ -85,6 +85,22 @@
     }
   }
 
+  .animate-scroll-left-slow {
+    animation: scrollLeft 60s linear infinite;
+
+    @media (max-width: 768px) {
+      animation: scrollLeft 40s linear infinite;
+    }
+  }
+
+  .animate-scroll-right-slow {
+    animation: scrollRight 60s linear infinite;
+
+    @media (max-width: 768px) {
+      animation: scrollRight 40s linear infinite;
+    }
+  }
+
   .skills-container:hover .animate-scroll-left,
   .skills-container:hover .animate-scroll-right,
   .animate-scroll-left:hover,
