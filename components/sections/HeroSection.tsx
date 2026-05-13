@@ -218,7 +218,7 @@ export const HeroSection = () => {
                 <Github className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" strokeWidth={1.5} />
               </a>
               <a
-                href={siteConfig.links.linked}
+                href={siteConfig.links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-800 hover:scale-110 hover:rotate-[10deg] transition-all duration-300"

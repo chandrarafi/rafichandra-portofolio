@@ -49,6 +49,7 @@ export const siteConfig = {
   ],
   links: {
     github: "https://github.com/Chandra2606",
-    linked: "https://www.linkedin.com/in/chandrarafi/",
+    linkedin: "https://www.linkedin.com/in/chandrarafi/",
+    discord: "https://discord.gg/uyee26",
   },
 };
