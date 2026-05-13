@@ -1,134 +1,319 @@
 "use client";
 
-import React, { useRef } from "react";
-import { Card, CardFooter } from "@heroui/card";
-import { Button } from "@heroui/button";
-import { Image } from "@heroui/image";
-import { Download } from "lucide-react";
+import React, { useRef, useEffect, useState } from "react";
+import { Download, Github, Linkedin } from "lucide-react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import foto from "@/public/image/me.jpg";
+import foto from "@/public/image/me.png";
 import { useLanguage } from "@/context/LanguageContext";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
+const greetings = ["Halo!", "Hello!", "Bonjour!", "Hola!", "Namaste!"];
+
+// Skill icons for marquee
+const skillIcons = [
+  { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+  { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" },
+  { name: "Laravel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" },
+  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "TailwindCSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+];
+
 export const HeroSection = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { t, lang } = useLanguage();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { t, lang } = useLanguage();
+  const [currentGreeting, setCurrentGreeting] = useState("");
+  const greetingIndex = useRef(0);
+  const charIndex = useRef(0);
+  const isDeleting = useRef(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const cvFile = lang === "en"
-        ? "/file/CV.Rafi Chandra 2026 - English.pdf"
-        : "/file/CV.Rafi Chandra 2026.pdf";
+  const cvFile =
+    lang === "en"
+      ? "/file/CV.Rafi Chandra 2026 - English.pdf"
+      : "/file/CV.Rafi Chandra 2026.pdf";
 
-    useGSAP(() => {
-        // Image card animation
-        gsap.fromTo(
-            ".hero-image-card",
-            { opacity: 0, scale: 0.8, y: 50 },
-            {
-                opacity: 1,
-                scale: 1,
-                y: 0,
-                duration: 1.2,
-                ease: "back.out(1.5)",
-            }
+  // Typewriter effect
+  useEffect(() => {
+    const typeWriter = () => {
+      const current = greetings[greetingIndex.current];
+
+      if (!isDeleting.current) {
+        charIndex.current++;
+        setCurrentGreeting(current.substring(0, charIndex.current));
+
+        if (charIndex.current === current.length) {
+          timeoutRef.current = setTimeout(() => {
+            isDeleting.current = true;
+            typeWriter();
+          }, 2000);
+          return;
+        }
+        timeoutRef.current = setTimeout(typeWriter, 100);
+      } else {
+        charIndex.current--;
+        setCurrentGreeting(current.substring(0, charIndex.current));
+
+        if (charIndex.current === 0) {
+          isDeleting.current = false;
+          greetingIndex.current =
+            (greetingIndex.current + 1) % greetings.length;
+          timeoutRef.current = setTimeout(typeWriter, 500);
+          return;
+        }
+        timeoutRef.current = setTimeout(typeWriter, 50);
+      }
+    };
+
+    timeoutRef.current = setTimeout(typeWriter, 1000);
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  // GSAP animations
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.fromTo(
+        ".hero-greeting",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 }
+      )
+        .fromTo(
+          ".hero-name",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5 },
+          "-=0.2"
+        )
+        .fromTo(
+          ".hero-desc",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5 },
+          "-=0.2"
+        )
+        .fromTo(
+          ".hero-socials",
+          { opacity: 0, scale: 0 },
+          { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" },
+          "-=0.2"
+        )
+        .fromTo(
+          ".hero-cta",
+          { opacity: 0, scale: 0 },
+          { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" },
+          "-=0.1"
+        )
+        .fromTo(
+          ".hero-image",
+          { opacity: 0, scale: 0.7 },
+          { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.7)" },
+          "-=0.6"
+        )
+        .fromTo(
+          ".hero-element",
+          { opacity: 0, scale: 0, rotation: -20 },
+          { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.15, ease: "back.out(2.5)" },
+          "-=0.3"
+        )
+        .fromTo(
+          ".hero-marquee",
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+          "-=0.3"
         );
 
-        // Text elements staggered animation
-        gsap.fromTo(
-            ".hero-text-element",
-            { opacity: 0, y: 30 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-                delay: 0.3,
-            }
-        );
-    }, { scope: containerRef });
+      // Floating animation for elements (standby)
+      gsap.utils.toArray(".hero-element").forEach((el: any, i) => {
+        gsap.to(el, {
+          y: i % 2 === 0 ? -6 : 6,
+          rotation: i % 2 === 0 ? 3 : -3,
+          duration: 2 + i * 0.3,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: i * 0.2,
+        });
+      });
 
-    return (
-        <section ref={containerRef} className="relative min-h-screen flex flex-col items-center justify-center gap-8 py-8 md:py-10 overflow-hidden">
-            {/* Card Foto */}
-            <div className="hero-image-card">
-                <Card
-                    isFooterBlurred
-                    className="border-none w-[250px] md:w-[300px] hover:shadow-[0_0_30px_rgba(178,73,248,0.4)] transition-shadow duration-500"
-                    radius="lg"
+      // Cursor blink
+      gsap.to(".typewriter-cursor", {
+        opacity: 0,
+        duration: 0.53,
+        repeat: -1,
+        yoyo: true,
+        ease: "steps(1)",
+      });
+    },
+    { scope: containerRef }
+  );
+
+  return (
+    <section
+      ref={containerRef}
+      id="home"
+      className="relative flex min-h-[600px] sm:min-h-[700px] h-screen w-full flex-col items-center justify-center bg-white overflow-hidden pt-[100px] sm:pt-[110px] md:pt-[120px] pb-[140px] sm:pb-[160px] md:pb-[180px]"
+    >
+      {/* Grid background */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundSize: "20px 20px",
+          backgroundImage:
+            "linear-gradient(to right, #e4e4e7 1px, transparent 1px), linear-gradient(to bottom, #e4e4e7 1px, transparent 1px)",
+        }}
+      />
+      {/* Radial fade */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+
+      {/* Main content */}
+      <div className="mx-auto max-w-full px-8 sm:px-10 md:px-14 lg:px-16 py-2 sm:py-4 md:py-8 lg:py-4 text-left flex flex-col lg:flex-row items-center justify-between relative z-10 flex-1">
+        {/* Left - Text Content */}
+        <div className="w-full lg:w-[55%] flex flex-col items-center lg:items-start lg:pl-8 order-2 lg:order-1">
+          {/* Typewriter greeting */}
+          <div className="hero-greeting">
+            <span className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2b55ff]">
+              {currentGreeting}
+              <span className="typewriter-cursor inline-block w-[2px] h-[0.85em] bg-[#2b55ff] ml-0.5 align-middle" />
+            </span>
+          </div>
+
+          {/* Name */}
+          <h1 className="hero-name text-xl sm:text-2xl font-heading md:text-3xl lg:text-5xl mt-2 sm:mt-3 md:mt-5 text-center lg:text-left">
+            {t("hero.greeting")}Rafi Chandra.
+          </h1>
+
+          {/* Description */}
+          <p className="hero-desc my-3 sm:my-5 md:my-6 lg:my-8 text-sm sm:text-base md:text-lg lg:text-xl font-normal leading-relaxed lg:leading-relaxed text-center lg:text-left max-w-2xl lg:max-w-xl">
+            {t("hero.description")}
+          </p>
+
+          {/* Social icons */}
+          <div className="flex flex-col items-center lg:items-start mb-6 md:mb-8 w-full">
+            <div className="hero-socials flex space-x-4 sm:space-x-6 mb-4 sm:mb-5 md:mb-6">
+              <a
+                href={siteConfig.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-800 hover:scale-110 hover:rotate-[-10deg] transition-all duration-300"
+              >
+                <Github className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" strokeWidth={1.5} />
+              </a>
+              <a
+                href={siteConfig.links.discord}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-800 hover:scale-110 hover:rotate-[10deg] transition-all duration-300"
+              >
+                <Linkedin className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9" strokeWidth={1.5} />
+              </a>
+            </div>
+
+            {/* CTA Button */}
+            <div className="hero-cta">
+              <a href={cvFile} download>
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="bg-main border-[2px] border-black text-black font-heading shadow-[4px_4px_0px_0px_#000000] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all h-10 text-base md:h-12 md:text-lg lg:h-14 lg:text-xl"
                 >
-                    <Image
-                        alt={t("hero.profileAlt")}
-                        className="object-cover w-full"
-                        height={300}
-                        src={foto.src}
-                        width={300}
-                    />
-                    <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-                        <p className="text-tiny text-white/80">{t("hero.downloadCv")}</p>
-                        <a href={cvFile} download>
-                            <Button
-                                className="text-tiny text-white bg-black/20 hover:bg-[#b249f8]/80 transition-all duration-300 ease-in-out group overflow-hidden"
-                                color="default"
-                                radius="lg"
-                                size="sm"
-                                variant="flat"
-                            >
-                                <span className="group-hover:-translate-y-10 transition-transform duration-300 inline-block">
-                                    <Download size={16} />
-                                </span>
-                                <span className="absolute translate-y-10 group-hover:translate-y-0 transition-transform duration-300 inline-flex items-center justify-center">
-                                    <Download className="animate-bounce" size={16} />
-                                </span>
-                            </Button>
-                        </a>
-                    </CardFooter>
-                </Card>
+                  Get in Touch!
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Right - Profile Image */}
+        <div className="w-full lg:w-[45%] mt-2 lg:mt-0 flex justify-center lg:justify-end order-1 lg:order-2">
+          <div className="hero-image relative max-w-[180px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px]">
+            {/* Photo */}
+            <div className="relative z-[2]">
+              <Image
+                alt={t("hero.profileAlt")}
+                src={foto}
+                width={380}
+                height={380}
+                priority
+                className="w-full h-auto"
+              />
+              {/* Fade shadow at bottom */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white to-transparent pointer-events-none" />
             </div>
 
-            {/* Heading utama */}
-            <div className="inline-block max-w-xl text-center justify-center px-4 mt-4">
-                <span className="hero-text-element tracking-tight inline font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight">
-                    {t("hero.greeting")}
-                </span>
-                <span className="hero-text-element tracking-tight inline font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight bg-clip-text text-transparent bg-gradient-to-b from-[#FF1CF7] to-[#b249f8]">
-                    Rafi Chandra.
-                </span>
-
-                <div className="hero-text-element w-full my-6 text-base sm:text-lg lg:text-xl text-gray-400 block max-w-full leading-relaxed font-light">
-                    {t("hero.description")}
-                </div>
+            {/* Code bracket - mid left */}
+            <div className="hero-element absolute top-1/2 -left-3 sm:-left-5 z-[3] bg-yellow-300 border-2 border-black rounded-md px-2 py-1 shadow-[3px_3px_0px_0px_#000] rotate-[-8deg]">
+              <span className="font-mono font-bold text-sm sm:text-base">&lt;/&gt;</span>
             </div>
 
-            {/* Running Text/Marquee */}
-            <div className="hero-text-element w-full mt-6 md:mt-10 overflow-hidden py-2 relative">
-                <div className="inline-flex animate-marquee whitespace-nowrap">
-                    <div className="flex items-center">
-                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mx-4 font-bold text-gray-300 hover:text-white transition-colors">
-                            {t("hero.role1")}
-                        </span>
-                        <span className="text-xl mx-4 text-[#FF1CF7]">•</span>
-                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mx-4 bg-clip-text text-transparent bg-gradient-to-b from-[#FF1CF7] to-[#b249f8] font-bold">
-                            {t("hero.role2")}
-                        </span>
-                        <span className="text-xl mx-4 text-[#FF1CF7]">•</span>
-                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mx-4 font-bold text-gray-300 hover:text-white transition-colors">
-                            {t("hero.role3")}
-                        </span>
-                        <span className="text-xl mx-4 text-[#58a6ff]">•</span>
-                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mx-4 bg-clip-text text-transparent bg-gradient-to-b from-[#58a6ff] to-[#3b82f6] font-bold">
-                            {t("hero.role4")}
-                        </span>
-                        <span className="text-xl mx-4 text-[#58a6ff]">•</span>
-                    </div>
-                </div>
+            {/* Terminal - mid right */}
+            <div className="hero-element absolute top-1/2 -right-3 sm:-right-5 z-[3] bg-black border-2 border-black rounded-md px-2 py-1 shadow-[3px_3px_0px_0px_#76fbd9] rotate-[6deg]">
+              <span className="font-mono font-bold text-sm sm:text-base text-main">$_</span>
             </div>
-        </section>
-    );
+
+            {/* Git branch - bottom left */}
+            <div className="hero-element absolute bottom-8 -left-4 sm:bottom-12 sm:-left-6 z-[3] bg-white border-2 border-black rounded-md px-2 py-1 shadow-[3px_3px_0px_0px_#000] rotate-[5deg]">
+              <span className="font-mono font-bold text-xs sm:text-sm">git ⎇</span>
+            </div>
+
+            {/* Developer tag - bottom right */}
+            <div className="hero-element absolute bottom-8 -right-3 sm:bottom-12 sm:-right-5 z-[3] bg-main border-2 border-black rounded-md px-2 py-1 shadow-[3px_3px_0px_0px_#000] rotate-[-4deg]">
+              <span className="font-mono font-bold text-xs sm:text-sm">{`{dev}`}</span>
+            </div>
+
+            {/* API badge - bottom center */}
+            <div className="hero-element absolute -bottom-2 left-1/2 -translate-x-1/2 z-[3] bg-white border-2 border-black rounded-md px-2 py-1 shadow-[3px_3px_0px_0px_#000]">
+              <span className="font-mono font-bold text-xs sm:text-sm">API</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Marquee Skills - Bottom - X cross */}
+      <div className="hero-marquee absolute bottom-0 left-0 w-full z-20 h-[120px] sm:h-[140px] md:h-[160px]">
+        {/* Row 1 - tilted \ direction, scroll left */}
+        <div className="absolute top-0 left-0 w-full border-y-[2px] border-black bg-white py-2 sm:py-3 -rotate-[3deg] origin-center translate-y-[10px] sm:translate-y-[14px]">
+          <div className="flex animate-scroll-left w-max">
+            {[...skillIcons, ...skillIcons, ...skillIcons].map((skill, index) => (
+              <div className="flex items-center mx-4 sm:mx-6 lg:mx-8" key={`row1-${index}`}>
+                <img src={skill.icon} alt={skill.name} className="w-5 h-5 sm:w-7 sm:h-7 lg:w-8 lg:h-8 mr-2" />
+                <span className="text-base sm:text-lg lg:text-xl font-heading whitespace-nowrap">{skill.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Row 2 - tilted / direction, scroll right */}
+        <div className="absolute bottom-0 left-0 w-full border-y-[2px] border-black bg-white py-2 sm:py-3 rotate-[3deg] origin-center -translate-y-[10px] sm:-translate-y-[14px]">
+          <div className="flex animate-scroll-right w-max">
+            {[...skillIcons].reverse().concat([...skillIcons].reverse(), [...skillIcons].reverse()).map((skill, index) => (
+              <div className="flex items-center mx-4 sm:mx-6 lg:mx-8" key={`row2-${index}`}>
+                <img src={skill.icon} alt={skill.name} className="w-5 h-5 sm:w-7 sm:h-7 lg:w-8 lg:h-8 mr-2" />
+                <span className="text-base sm:text-lg lg:text-xl font-heading whitespace-nowrap">{skill.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default HeroSection;

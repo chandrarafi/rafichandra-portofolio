@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "@heroui/link";
-import { button as buttonStyles } from "@heroui/theme";
+import NextLink from "next/link";
 
 import { title as titleStyle } from "@/components/primitives";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface SectionProps {
   id: string;
@@ -21,7 +22,7 @@ export const PortfolioSection: React.FC<SectionProps> = ({
   return (
     <section className={`py-20 w-full ${className}`} id={id}>
       <div className="container mx-auto px-4">
-        <h2 className={`${titleStyle({ size: "lg" })} mb-12 text-center`}>
+        <h2 className={cn(titleStyle({ size: "lg" }), "mb-12 text-center")}>
           {titleText}
         </h2>
         {children}
@@ -35,41 +36,31 @@ export const AboutSection = () => {
   return (
     <PortfolioSection id="about" titleText="Tentang Saya">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        <div className="glass-card backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl">
+        <div className="rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark p-8">
           <h3 className={titleStyle({ size: "sm" })}>Rafi Chandra</h3>
-          <p className="text-lg mt-4 text-gray-300">
+          <p className="text-lg mt-4 text-text/70 dark:text-darkText/70">
             Saya adalah seorang pengembang web dengan pengalaman dalam membangun
             aplikasi modern dan responsif. Saya berkomitmen untuk membuat produk
             yang indah, fungsional, dan ramah pengguna.
           </p>
-          <p className="mt-4 text-gray-300">
+          <p className="mt-4 text-text/70 dark:text-darkText/70">
             Dengan latar belakang dalam desain dan pengembangan frontend, saya
             menggabungkan kreativitas dan keterampilan teknis untuk menciptakan
             solusi digital yang melampaui harapan.
           </p>
           <div className="flex gap-3 mt-6">
-            <Link
-              className={buttonStyles({
-                color: "primary",
-                radius: "full",
-                variant: "shadow",
-              })}
-              href="#contact"
-            >
-              Hubungi Saya
-            </Link>
-            <Link
-              className={buttonStyles({ variant: "bordered", radius: "full" })}
-              href="#projects"
-            >
-              Lihat Proyek
-            </Link>
+            <NextLink href="#contact">
+              <Button variant="default">Hubungi Saya</Button>
+            </NextLink>
+            <NextLink href="#projects">
+              <Button variant="neutral">Lihat Proyek</Button>
+            </NextLink>
           </div>
         </div>
 
         <div className="relative h-[400px]">
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-violet-600/30 to-blue-600/30 blur-xl animate-pulse-slow" />
-          <div className="absolute inset-0 rounded-xl overflow-hidden">
+          <div className="absolute inset-0 rounded-base bg-gradient-to-tr from-violet-600/30 to-blue-600/30 blur-xl animate-pulse-slow" />
+          <div className="absolute inset-0 rounded-base overflow-hidden border-2 border-border dark:border-darkBorder">
             <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center" />
           </div>
         </div>
@@ -97,15 +88,15 @@ export const SkillsSection = () => {
         {skills.map((skill, index) => (
           <div
             key={index}
-            className="glass-card backdrop-blur-sm p-6 rounded-xl border border-white/20 shadow-xl"
+            className="rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark p-6"
           >
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-lg font-semibold">{skill.name}</h3>
+              <h3 className="text-lg font-heading">{skill.name}</h3>
               <span>{skill.level}%</span>
             </div>
-            <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+            <div className="w-full h-3 bg-bg dark:bg-darkBg rounded-base overflow-hidden border-2 border-border dark:border-darkBorder">
               <div
-                className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                className="h-full bg-main rounded-base"
                 style={{ width: `${skill.level}%` }}
               />
             </div>
@@ -154,25 +145,26 @@ export const ProjectsSection = () => {
         {projects.map((project, index) => (
           <div
             key={index}
-            className="glass-card backdrop-blur-sm border border-white/20 shadow-xl overflow-hidden rounded-xl"
+            className="rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark overflow-hidden"
           >
-            <div className="relative w-full h-48 overflow-hidden">
+            <div className="relative w-full h-48 overflow-hidden border-b-2 border-border dark:border-darkBorder">
               <div className="absolute inset-0">
                 <div
                   className="w-full h-full bg-cover bg-center"
                   style={{ backgroundImage: `url(${project.image})` }}
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-              <p className="text-gray-300 mb-4">{project.description}</p>
+              <h3 className="text-xl font-heading mb-2">{project.title}</h3>
+              <p className="text-text/70 dark:text-darkText/70 mb-4">
+                {project.description}
+              </p>
               <div className="flex flex-wrap gap-2 mt-3">
                 {project.tags.map((tag, tagIndex) => (
                   <span
                     key={tagIndex}
-                    className="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full"
+                    className="px-3 py-1 bg-main/20 text-main text-xs rounded-base border-2 border-border dark:border-darkBorder font-base"
                   >
                     {tag}
                   </span>
@@ -180,17 +172,11 @@ export const ProjectsSection = () => {
               </div>
             </div>
             <div className="px-6 pb-6">
-              <Link
-                className={buttonStyles({
-                  color: "primary",
-                  variant: "light",
-                  radius: "full",
-                  size: "sm",
-                })}
-                href={project.link}
-              >
-                Lihat Detail
-              </Link>
+              <NextLink href={project.link}>
+                <Button variant="default" size="sm">
+                  Lihat Detail
+                </Button>
+              </NextLink>
             </div>
           </div>
         ))}
@@ -204,9 +190,9 @@ export const ContactSection = () => {
   return (
     <PortfolioSection id="contact" titleText="Hubungi Saya">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="glass-card backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl">
+        <div className="rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark p-8">
           <h3 className={titleStyle({ size: "sm" })}>Kirim Pesan</h3>
-          <p className="text-gray-300 mt-2 mb-6">
+          <p className="text-text/70 dark:text-darkText/70 mt-2 mb-6">
             Tertarik untuk bekerja sama? Jangan ragu untuk menghubungi saya
             melalui form ini.
           </p>
@@ -214,13 +200,13 @@ export const ContactSection = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label
-                  className="block text-sm font-medium mb-1"
+                  className="block text-sm font-base mb-1"
                   htmlFor="name"
                 >
                   Nama
                 </label>
                 <input
-                  className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-primary"
+                  className="w-full p-3 rounded-base border-2 border-border dark:border-darkBorder bg-bg dark:bg-darkBg focus:ring-2 focus:ring-main"
                   id="name"
                   placeholder="Nama Anda"
                   type="text"
@@ -228,13 +214,13 @@ export const ContactSection = () => {
               </div>
               <div>
                 <label
-                  className="block text-sm font-medium mb-1"
+                  className="block text-sm font-base mb-1"
                   htmlFor="email"
                 >
                   Email
                 </label>
                 <input
-                  className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-primary"
+                  className="w-full p-3 rounded-base border-2 border-border dark:border-darkBorder bg-bg dark:bg-darkBg focus:ring-2 focus:ring-main"
                   id="email"
                   placeholder="email@example.com"
                   type="email"
@@ -243,13 +229,13 @@ export const ContactSection = () => {
             </div>
             <div>
               <label
-                className="block text-sm font-medium mb-1"
+                className="block text-sm font-base mb-1"
                 htmlFor="subject"
               >
                 Subjek
               </label>
               <input
-                className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-primary"
+                className="w-full p-3 rounded-base border-2 border-border dark:border-darkBorder bg-bg dark:bg-darkBg focus:ring-2 focus:ring-main"
                 id="subject"
                 placeholder="Subjek pesan"
                 type="text"
@@ -257,41 +243,34 @@ export const ContactSection = () => {
             </div>
             <div>
               <label
-                className="block text-sm font-medium mb-1"
+                className="block text-sm font-base mb-1"
                 htmlFor="message"
               >
                 Pesan
               </label>
               <textarea
-                className="w-full p-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-primary"
+                className="w-full p-3 rounded-base border-2 border-border dark:border-darkBorder bg-bg dark:bg-darkBg focus:ring-2 focus:ring-main"
                 id="message"
                 placeholder="Tulis pesan Anda di sini..."
                 rows={4}
               />
             </div>
             <div>
-              <button
-                className={buttonStyles({
-                  color: "primary",
-                  radius: "full",
-                  variant: "shadow",
-                })}
-                type="submit"
-              >
+              <Button type="submit" variant="default">
                 Kirim Pesan
-              </button>
+              </Button>
             </div>
           </form>
         </div>
 
-        <div className="glass-card backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-xl">
+        <div className="rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark p-8">
           <h3 className={titleStyle({ size: "sm" })}>Informasi Kontak</h3>
-          <p className="text-gray-300 mt-2 mb-6">
+          <p className="text-text/70 dark:text-darkText/70 mt-2 mb-6">
             Anda juga dapat menghubungi saya melalui cara berikut:
           </p>
           <div className="space-y-6">
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-base bg-main/20 border-2 border-border dark:border-darkBorder flex items-center justify-center">
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -308,14 +287,14 @@ export const ContactSection = () => {
                 </svg>
               </div>
               <div>
-                <h4 className="font-medium text-lg">Email</h4>
-                <a className="text-primary" href="mailto:email@example.com">
+                <h4 className="font-heading text-lg">Email</h4>
+                <a className="text-main" href="mailto:email@example.com">
                   email@example.com
                 </a>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-base bg-main/20 border-2 border-border dark:border-darkBorder flex items-center justify-center">
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -332,14 +311,14 @@ export const ContactSection = () => {
                 </svg>
               </div>
               <div>
-                <h4 className="font-medium text-lg">Telepon</h4>
-                <a className="text-primary" href="tel:+628123456789">
+                <h4 className="font-heading text-lg">Telepon</h4>
+                <a className="text-main" href="tel:+628123456789">
                   +62 812 3456 789
                 </a>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-base bg-main/20 border-2 border-border dark:border-darkBorder flex items-center justify-center">
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -362,8 +341,10 @@ export const ContactSection = () => {
                 </svg>
               </div>
               <div>
-                <h4 className="font-medium text-lg">Lokasi</h4>
-                <p className="text-gray-300">Jakarta, Indonesia</p>
+                <h4 className="font-heading text-lg">Lokasi</h4>
+                <p className="text-text/70 dark:text-darkText/70">
+                  Jakarta, Indonesia
+                </p>
               </div>
             </div>
           </div>

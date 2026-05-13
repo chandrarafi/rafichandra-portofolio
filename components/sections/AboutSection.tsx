@@ -33,22 +33,20 @@ export const AboutSection = () => {
     );
   }, { scope: containerRef });
 
-  // Build the about description with highlighted spans
   const renderAboutDescription = () => {
     const desc = t("about.description");
     const university = t("about.university");
-    
-    // Replace placeholders with JSX
+
     const parts = desc.split(/(\{university\}|\{oracle\}|\{cisco\})/);
     return parts.map((part, idx) => {
       if (part === "{university}") {
-        return <span key={idx} className="font-semibold text-white">{university}</span>;
+        return <span key={idx} className="font-heading text-text">{university}</span>;
       }
       if (part === "{oracle}") {
-        return <span key={idx} className="text-[#58a6ff] font-semibold">Oracle</span>;
+        return <span key={idx} className="text-[#2b55ff] font-heading">Oracle</span>;
       }
       if (part === "{cisco}") {
-        return <span key={idx} className="text-[#58a6ff] font-semibold">Cisco</span>;
+        return <span key={idx} className="text-[#2b55ff] font-heading">Cisco</span>;
       }
       return <React.Fragment key={idx}>{part}</React.Fragment>;
     });
@@ -56,14 +54,16 @@ export const AboutSection = () => {
 
   return (
     <div ref={containerRef}>
-      <section className="w-full py-16 md:py-24" id="about">
-        <div className="container mx-auto px-4 max-w-4xl">
+      <section className="w-full py-16 md:py-24 relative bg-white" id="about">
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundSize: "20px 20px", backgroundImage: "linear-gradient(to right, #e4e4e7 1px, transparent 1px), linear-gradient(to bottom, #e4e4e7 1px, transparent 1px)" }} />
+        <div className="pointer-events-none absolute inset-0 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+        <div className="container mx-auto px-4 max-w-4xl relative z-10">
           <div className="grid grid-cols-1 gap-10 items-center perspective-1000">
-            <div className="about-card bg-[#161b22] p-6 sm:p-8 md:p-12 rounded-3xl border border-gray-700/50 shadow-2xl hover:border-[#FF1CF7]/30 hover:shadow-[0_10px_40px_rgba(178,73,248,0.15)] transition-all duration-500">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 sm:mb-6 md:mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#FF1CF7] to-[#b249f8] text-center tracking-tight">
+            <div className="about-card rounded-base border-2 border-border dark:border-darkBorder bg-white dark:bg-secondaryBlack shadow-light dark:shadow-dark p-6 sm:p-8 md:p-12 transition-all duration-500 hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading mb-4 sm:mb-6 md:mb-8 text-main text-center tracking-tight">
                 {t("about.title")}
               </h3>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 leading-loose sm:leading-relaxed text-left sm:text-center font-light">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-text/70 dark:text-darkText/70 leading-loose sm:leading-relaxed text-left sm:text-center font-base">
                 {renderAboutDescription()}
               </p>
             </div>
