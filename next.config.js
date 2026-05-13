@@ -1,9 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    eslint: {
-        // Menonaktifkan pemeriksaan ESLint selama build
-        ignoreDuringBuilds: true,
-    },
-};
+const nextConfig = {};
 
 module.exports = nextConfig;
